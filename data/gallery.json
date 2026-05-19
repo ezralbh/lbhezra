@@ -1,0 +1,46 @@
+{
+  "gallery": [
+    {
+      "src": "images/gallery/kegiatan1.jpg",
+      "type": "image",
+      "alt": "Kegiatan LBH EZRA",
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/kegiatan2.jpg",
+      "type": "image",
+      "alt": "Kegiatan LBH EZRA",
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/kegiatan3.jpg",
+      "type": "image",
+      "alt": "Kegiatan LBH EZRA",
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/kegiatan4.jpg",
+      "type": "image",
+      "alt": "Kegiatan LBH EZRA",
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/kegiatan5.jpg",
+      "type": "image",
+      "alt": "Kegiatan LBH EZRA",
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/kegiatan6.jpg",
+      "type": "image",
+      "alt": "Kegiatan LBH EZRA",
+      "caption": ""
+    },
+    {
+      "src": "images/gallery/halmahera1.mp4",
+      "type": "video",
+      "alt": "Video Halmahera",
+      "caption": ""
+    }
+  ]
+}

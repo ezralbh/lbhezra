@@ -1,0 +1,9 @@
+{
+  "whatsapp": "6281234567890",
+  "phone": "+62 812 3456 7890",
+  "address": "Jl. Raya Bintuni-Manokwari, Tisay, SP V, Kabupaten Teluk Bintuni, Provinsi Papua Barat",
+  "operationalHours": {
+    "weekday": "Senin - Jumat: 08:00 - 17:00",
+    "weekend": "Sabtu: 08:00 - 12:00"
+  }
+}

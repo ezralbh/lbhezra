@@ -1,0 +1,54 @@
+{
+    "organization": {
+        "name": "LBH EZRA",
+        "fullName": "Lembaga Bantuan Hukum EZRA",
+        "tagline": "Keadilan untuk Semua"
+    },
+    "pembina": [
+        {
+            "name": "Nama Pembina",
+            "position": "Ketua Pembina",
+            "photo": "images/team/pembina-1.jpg"
+        }
+    ],
+    "pengurus": [
+        {
+            "name": "Nama Ketua",
+            "position": "Ketua Umum",
+            "role": "Advokat",
+            "photo": "images/team/pengurus-1.jpg"
+        },
+        {
+            "name": "Nama Sekretaris",
+            "position": "Sekretaris",
+            "role": "Advokat",
+            "photo": "images/team/pengurus-2.jpg"
+        },
+        {
+            "name": "Nama Bendahara",
+            "position": "Bendahara",
+            "role": "Advokat",
+            "photo": "images/team/pengurus-3.jpg"
+        }
+    ],
+    "advokat": [
+        {
+            "name": "Nama Advokat 1",
+            "position": "Advokat",
+            "specialization": "Hukum Pidana",
+            "photo": "images/team/advokat-1.jpg"
+        },
+        {
+            "name": "Nama Advokat 2",
+            "position": "Advokat",
+            "specialization": "Hukum Perdata",
+            "photo": "images/team/advokat-2.jpg"
+        },
+        {
+            "name": "Nama Advokat 3",
+            "position": "Advokat",
+            "specialization": "Hukum Ketenagakerjaan",
+            "photo": "images/team/advokat-3.jpg"
+        }
+    ]
+}
