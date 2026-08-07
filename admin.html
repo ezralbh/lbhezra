@@ -43,9 +43,10 @@
                 <span id="connection-dot" class="status-dot disconnected"></span>
                 <span id="connection-text">Tidak Terhubung</span>
                 <br>
-                <a href="#" onclick="app.disconnect(); return false;" style="font-size:0.75rem;">Disconnect</a>
-                &nbsp;|&nbsp;
-                <a href="index.html" style="font-size:0.75rem;">← Kembali ke Website</a>
+                <div style="margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem;">
+                    <a href="index.html" class="btn-admin btn-outline-admin" style="font-size:0.75rem; padding: 0.5rem; text-align: center; text-decoration: none;">← Kembali ke Website</a>
+                    <button id="btn-logout" onclick="app.logout()" class="btn-admin btn-outline-admin" style="font-size:0.75rem; padding: 0.5rem; text-align: center; color: red; border-color: red;">Logout</button>
+                </div>
             </div>
         </aside>
         <div class="sidebar-overlay"></div>
