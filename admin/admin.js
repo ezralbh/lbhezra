@@ -7,12 +7,14 @@ const app = {
     data: {
         publications: [],
         gallery: [],
-        config: {}
+        config: {},
+        refleksi: []
     },
     shas: {
         publications: '',
         gallery: '',
-        config: ''
+        config: '',
+        refleksi: ''
     },
 
     init: function() {
@@ -133,6 +135,15 @@ const app = {
             }
             this.renderSettings();
 
+            // Load Refleksi
+            const refRes = await this.githubRequest('data/refleksi.json');
+            if (refRes) {
+                this.shas.refleksi = refRes.sha;
+                const content = decodeURIComponent(escape(atob(refRes.content)));
+                this.data.refleksi = JSON.parse(content).refleksi || [];
+            }
+            this.renderRefleksi();
+
             this.updateDashboardStats();
 
         } catch (error) {
@@ -147,8 +158,9 @@ const app = {
     updateDashboardStats: function() {
         document.getElementById('stat-publications').innerText = this.data.publications.length;
         document.getElementById('stat-gallery').innerText = this.data.gallery.length;
-        const videos = this.data.gallery.filter(g => g.type === 'video').length;
-        document.getElementById('stat-videos').innerText = videos;
+        if (document.getElementById('stat-refleksi')) {
+            document.getElementById('stat-refleksi').innerText = this.data.refleksi.length;
+        }
     },
 
     // --- Publications ---
@@ -251,6 +263,117 @@ const app = {
             const res = await this.commitTextFile('data/publications.json', content, 'Update publications data', this.shas.publications);
             this.shas.publications = res.content.sha;
             alert('Publikasi berhasil di-publish!');
+        } catch (e) {
+            console.error(e);
+            alert('Gagal mem-publish: ' + e.message);
+        } finally {
+            btn.innerText = ogText;
+            btn.disabled = false;
+        }
+    },
+
+    // --- Refleksi ---
+
+    renderRefleksi: function() {
+        const tbody = document.getElementById('refleksi-tbody');
+        if (!tbody) return;
+
+        if (this.data.refleksi.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="empty-state"><p>Tidak ada refleksi.</p></td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = this.data.refleksi.map((ref, index) => `
+            <tr>
+                <td><img src="${ref.thumbnail}" style="width:50px;height:50px;object-fit:cover;border-radius:4px;" onerror="this.src='images/placeholder-news.jpg'"></td>
+                <td><strong>${ref.title}</strong><br><small>${ref.author}</small></td>
+                <td>${ref.date}</td>
+                <td>
+                    <button class="btn-admin btn-outline-admin" onclick="app.editRefleksi(${index})" style="padding:0.25rem 0.5rem;font-size:0.875rem;">Edit</button>
+                    <button class="btn-admin btn-outline-admin" onclick="app.deleteRefleksi(${index})" style="padding:0.25rem 0.5rem;font-size:0.875rem;color:red;border-color:red;">Hapus</button>
+                </td>
+            </tr>
+        `).join('');
+    },
+
+    openAddRefleksi: function() {
+        document.getElementById('ref-edit-index').value = '-1';
+        document.getElementById('ref-title').value = '';
+        document.getElementById('ref-author').value = '';
+        document.getElementById('ref-date').value = '';
+        document.getElementById('ref-id').value = '';
+        document.getElementById('ref-excerpt').value = '';
+        document.getElementById('ref-content').value = '';
+        document.getElementById('ref-thumb-path').value = '';
+        document.getElementById('ref-file-preview').innerHTML = '';
+
+        document.getElementById('ref-modal-title').innerText = 'Tambah Refleksi Hukum';
+        document.getElementById('ref-modal').classList.add('active');
+    },
+
+    editRefleksi: function(index) {
+        const ref = this.data.refleksi[index];
+        document.getElementById('ref-edit-index').value = index;
+        document.getElementById('ref-title').value = ref.title || '';
+        document.getElementById('ref-author').value = ref.author || '';
+        document.getElementById('ref-date').value = ref.date || '';
+        document.getElementById('ref-id').value = ref.id || '';
+        document.getElementById('ref-excerpt').value = ref.excerpt || '';
+        document.getElementById('ref-content').value = ref.content || '';
+        document.getElementById('ref-thumb-path').value = ref.thumbnail || '';
+        document.getElementById('ref-file-preview').innerHTML = `<img src="${ref.thumbnail}" style="max-width:100%;max-height:150px;border-radius:4px;margin-top:1rem;">`;
+
+        document.getElementById('ref-modal-title').innerText = 'Edit Refleksi Hukum';
+        document.getElementById('ref-modal').classList.add('active');
+    },
+
+    deleteRefleksi: function(index) {
+        if (confirm('Yakin ingin menghapus refleksi ini?')) {
+            this.data.refleksi.splice(index, 1);
+            this.renderRefleksi();
+            this.updateDashboardStats();
+        }
+    },
+
+    saveRefForm: function() {
+        const index = parseInt(document.getElementById('ref-edit-index').value);
+
+        const ref = {
+            id: document.getElementById('ref-id').value,
+            title: document.getElementById('ref-title').value,
+            author: document.getElementById('ref-author').value,
+            date: document.getElementById('ref-date').value,
+            excerpt: document.getElementById('ref-excerpt').value,
+            content: document.getElementById('ref-content').value,
+            thumbnail: document.getElementById('ref-thumb-path').value
+        };
+
+        if (!ref.title || !ref.author || !ref.date || !ref.id || !ref.content) {
+            return alert('Harap isi field yang wajib!');
+        }
+
+        if (index === -1) {
+            this.data.refleksi.unshift(ref);
+        } else {
+            this.data.refleksi[index] = ref;
+        }
+
+        this.renderRefleksi();
+        this.updateDashboardStats();
+        closeModal('ref-modal');
+    },
+
+    async publishRefleksi() {
+        const btn = document.getElementById('btn-publish-ref');
+        const ogText = btn.innerText;
+        btn.innerText = 'Menyimpan...';
+        btn.disabled = true;
+
+        try {
+            const content = JSON.stringify({ refleksi: this.data.refleksi }, null, 2);
+            const res = await this.commitTextFile('data/refleksi.json', content, 'Update refleksi data', this.shas.refleksi);
+            this.shas.refleksi = res.content.sha;
+            alert('Refleksi berhasil di-publish!');
         } catch (e) {
             console.error(e);
             alert('Gagal mem-publish: ' + e.message);
@@ -434,6 +557,9 @@ const app = {
                 // Update specific hidden inputs based on which form is uploading
                 if (hiddenIdPrefix === 'pub-thumbnail') {
                     const thumbInput = document.getElementById('pub-thumb-path');
+                    if (thumbInput) thumbInput.value = filePath;
+                } else if (hiddenIdPrefix === 'ref-thumbnail') {
+                    const thumbInput = document.getElementById('ref-thumb-path');
                     if (thumbInput) thumbInput.value = filePath;
                 } else if (hiddenIdPrefix === 'gallery-media') {
                     // Create hidden inputs for gallery form to store path and type
