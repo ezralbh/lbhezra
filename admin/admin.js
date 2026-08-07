@@ -21,6 +21,11 @@ const app = {
         if (this.token) {
             this.showPage('dashboard');
             this.loadAllData();
+
+            const dot = document.getElementById('connection-dot');
+            const text = document.getElementById('connection-text');
+            if(dot) dot.className = 'status-dot connected';
+            if(text) text.innerText = 'Terhubung';
         } else {
             this.showPage('setup');
         }
@@ -52,6 +57,28 @@ const app = {
         localStorage.setItem('github_token', token);
         this.showPage('dashboard');
         this.loadAllData();
+
+        const dot = document.getElementById('connection-dot');
+        const text = document.getElementById('connection-text');
+        if(dot) dot.className = 'status-dot connected';
+        if(text) text.innerText = 'Terhubung';
+    },
+
+    logout: function() {
+        if(confirm('Yakin ingin logout?')) {
+            this.token = '';
+            localStorage.removeItem('github_token');
+            this.showPage('setup');
+            document.getElementById('github-token').value = '';
+
+            const dot = document.getElementById('connection-dot');
+            const text = document.getElementById('connection-text');
+            if(dot) dot.className = 'status-dot disconnected';
+            if(text) text.innerText = 'Tidak Terhubung';
+
+            // Clear local data to avoid leaking state
+            this.data = { publications: [], gallery: [], config: {}, refleksi: [] };
+        }
     },
 
     showPage: function(pageId) {
