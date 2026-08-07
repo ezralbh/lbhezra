@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Refleksi Hukum LBH EZRA - Tulisan dan pemikiran dari staf dan anggota LBH.">
+    <title>Refleksi Hukum - LBH EZRA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .article-content {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: var(--neutral-700);
+            font-size: 1.125rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .article-content p {
+            margin-bottom: 1.5rem;
+        }
+        .article-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        .article-meta {
+            color: var(--neutral-500);
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+        .article-thumbnail-large {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        #article-view, #list-view {
+            display: none;
+        }
+        #article-view.active, #list-view.active {
+            display: block;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/logo/logo.png" alt="Logo LBH EZRA">
+                <div class="nav-logo-text">LBH <span>EZRA</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Beranda</a></li>
+                <li><a href="tentang.html" class="nav-link">Tentang Kami</a></li>
+                <li><a href="struktur.html" class="nav-link">Struktur</a></li>
+                <li><a href="publikasi.html" class="nav-link">Publikasi</a></li>
+                <li><a href="refleksi.html" class="nav-link active">Refleksi</a></li>
+                <li><a href="dokumentasi.html" class="nav-link">Dokumentasi</a></li>
+                <li><a href="kontak.html" class="nav-link">Kontak</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+        </div>
+    </nav>
+
+    <header class="page-header" id="page-header-container">
+        <div class="container">
+            <h1>Refleksi Hukum</h1>
+            <p>Pemikiran dan pandangan dari tim LBH EZRA</p>
+            <nav class="breadcrumb"><a href="index.html">Beranda</a><span>/</span><span class="current">Refleksi</span>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <!-- List View -->
+            <div id="list-view" class="active">
+                <div class="section-header">
+                    <h2>Tulisan Terbaru</h2>
+                </div>
+                <div class="publication-grid" id="refleksi-grid">
+                    <!-- Content will be loaded by refleksi.js -->
+                </div>
+            </div>
+
+            <!-- Single Article View -->
+            <div id="article-view">
+                <a href="refleksi.html" class="back-link">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Kembali ke Daftar Tulisan
+                </a>
+                <article>
+                    <div class="article-header">
+                        <h2 id="article-title" style="font-family:'Outfit', sans-serif; font-size:2.5rem; margin-bottom:1rem; line-height:1.2;">Memuat Judul...</h2>
+                        <div class="article-meta" id="article-meta">Oleh <strong>Penulis</strong> | Tanggal</div>
+                    </div>
+                    <img id="article-thumbnail" class="article-thumbnail-large" src="" alt="Thumbnail" onerror="this.style.display='none'">
+                    <div class="article-content" id="article-body">
+                        Memuat konten...
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="nav-logo">
+                        <img src="images/logo/logo.png" alt="Logo LBH EZRA">
+                        <div class="nav-logo-text">LBH <span>EZRA</span></div>
+                    </a>
+                    <p>Lembaga Bantuan Hukum yang berkomitmen untuk menyediakan akses keadilan bagi masyarakat kurang mampu.</p>
+                </div>
+                <div class="footer-nav">
+                    <h4 class="footer-title">Menu</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Beranda</a></li>
+                        <li><a href="tentang.html">Tentang Kami</a></li>
+                        <li><a href="publikasi.html">Publikasi</a></li>
+                        <li><a href="refleksi.html">Refleksi</a></li>
+                        <li><a href="kontak.html">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title">Kontak</h4>
+                    <ul class="footer-links">
+                        <li>📍 Jl. Raya Bintuni-Manokwari, Tisay, SP V, Kabupaten Teluk Bintuni, Provinsi Papua Barat</li>
+                        <li>📞 +62 812 3456 7890</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 LBH EZRA. Seluruh Hak Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/refleksi.js"></script>
+</body>
+
+</html>

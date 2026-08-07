@@ -25,6 +25,10 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                     Publikasi
                 </button>
+                <button class="sidebar-link" data-page="refleksi">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Refleksi Hukum
+                </button>
                 <button class="sidebar-link" data-page="gallery">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                     Galeri / Dokumentasi
@@ -100,17 +104,41 @@
                         </div>
                         <div class="stat-card">
                             <div class="stat-icon amber">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                             </div>
-                            <div class="stat-info"><h4 id="stat-videos">0</h4><p>Video</p></div>
+                            <div class="stat-info"><h4 id="stat-refleksi">0</h4><p>Refleksi</p></div>
                         </div>
                     </div>
                     <div class="admin-card">
                         <div class="admin-card-header"><h3>Quick Actions</h3></div>
                         <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
                             <button class="btn-admin btn-primary-admin" onclick="app.showPage('publications'); document.querySelector('.sidebar-link[data-page=publications]').click();">+ Tambah Publikasi</button>
+                            <button class="btn-admin btn-primary-admin" onclick="app.showPage('refleksi'); document.querySelector('.sidebar-link[data-page=refleksi]').click();">+ Tambah Refleksi</button>
                             <button class="btn-admin btn-outline-admin" onclick="app.showPage('gallery'); document.querySelector('.sidebar-link[data-page=gallery]').click();">+ Tambah Media</button>
                             <button class="btn-admin btn-outline-admin" onclick="app.showPage('settings'); document.querySelector('.sidebar-link[data-page=settings]').click();">⚙️ Pengaturan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Refleksi Page -->
+                <div class="admin-page" id="page-refleksi">
+                    <div class="admin-card">
+                        <div class="admin-card-header">
+                            <h3>Daftar Refleksi Hukum</h3>
+                            <div style="display:flex;gap:0.5rem;">
+                                <button class="btn-admin btn-primary-admin" onclick="app.openAddRefleksi()">+ Tambah</button>
+                                <button class="btn-admin btn-success-admin" id="btn-publish-ref" onclick="app.publishRefleksi()">🚀 Publish ke GitHub</button>
+                            </div>
+                        </div>
+                        <div class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr><th>Foto</th><th>Judul / Penulis</th><th>Tanggal</th><th>Aksi</th></tr>
+                                </thead>
+                                <tbody id="refleksi-tbody">
+                                    <tr><td colspan="4" class="empty-state"><p>Memuat data...</p></td></tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -240,6 +268,63 @@
             <div class="modal-footer">
                 <button class="btn-admin btn-outline-admin" onclick="closeModal('pub-modal')">Batal</button>
                 <button class="btn-admin btn-primary-admin" onclick="app.savePubForm()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refleksi Modal -->
+    <div class="modal-overlay" id="ref-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="ref-modal-title">Tambah Refleksi Hukum</h3>
+                <button class="modal-close" onclick="closeModal('ref-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="ref-edit-index" value="-1">
+                <div class="form-group">
+                    <label class="form-label">Judul Tulisan *</label>
+                    <input type="text" id="ref-title" class="form-input" placeholder="Judul tulisan...">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Penulis *</label>
+                        <input type="text" id="ref-author" class="form-input" placeholder="Nama penulis">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal *</label>
+                        <input type="date" id="ref-date" class="form-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">ID / Slug *</label>
+                    <input type="text" id="ref-id" class="form-input" placeholder="contoh: judul-tulisan-ini" onkeyup="this.value=this.value.toLowerCase().replace(/[^a-z0-9-]/g,'-')">
+                    <p class="form-help">Hanya huruf kecil, angka, dan tanda hubung (-). Digunakan untuk link URL.</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kutipan / Excerpt</label>
+                    <textarea id="ref-excerpt" class="form-textarea" rows="2" placeholder="Ringkasan singkat..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Konten Lengkap *</label>
+                    <textarea id="ref-content" class="form-textarea" rows="10" placeholder="Tulis konten lengkap di sini... (Gunakan enter ganda untuk paragraf baru)"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Thumbnail</label>
+                    <div class="file-upload-area">
+                        <input type="file" accept="image/*" onchange="app.handleFileUpload(this, 'ref-file-preview', 'ref-thumbnail', 'images/refleksi')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <p>Klik atau seret file gambar ke sini</p>
+                    </div>
+                    <div id="ref-file-preview"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Path Thumbnail</label>
+                    <input type="text" id="ref-thumb-path" class="form-input" placeholder="images/refleksi/filename.jpg">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-admin btn-outline-admin" onclick="closeModal('ref-modal')">Batal</button>
+                <button class="btn-admin btn-primary-admin" onclick="app.saveRefForm()">Simpan</button>
             </div>
         </div>
     </div>
