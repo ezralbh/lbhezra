@@ -51,7 +51,9 @@ class PublicationsLoader {
 
     async loadPublications() {
         try {
-            const response = await fetch(this.dataPath);
+            // Append timestamp to bypass browser cache
+            const cacheBuster = `?t=${new Date().getTime()}`;
+            const response = await fetch(this.dataPath + cacheBuster, { cache: 'no-store' });
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
