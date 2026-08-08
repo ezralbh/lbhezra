@@ -82,10 +82,12 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
   font-family: var(--font-primary);
+  overflow-x: hidden;
   line-height: 1.6;
   color: var(--neutral-700);
   background-color: var(--neutral-50);
@@ -123,11 +125,11 @@ h6 {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
 }
 
 h2 {
-  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
 }
 
 h3 {
@@ -596,7 +598,7 @@ p {
    =================================== */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 2rem;
 }
 
@@ -649,7 +651,7 @@ p {
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
   gap: 2rem;
 }
 
@@ -730,7 +732,7 @@ p {
    =================================== */
 .publication-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
   gap: 2rem;
 }
 
@@ -821,7 +823,7 @@ p {
    =================================== */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1.5rem;
 }
 
@@ -1200,8 +1202,16 @@ p {
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+
   .whatsapp-float a {
-    padding: 1rem;
+    padding: 0;
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    border-radius: 50%;
   }
 
   .whatsapp-float .text {
