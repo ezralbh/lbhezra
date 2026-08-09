@@ -37,6 +37,28 @@
   --font-heading: 'Outfit', var(--font-primary);
 }
 
+/* Quill dropdown styles for fonts */
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="inter"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="inter"]::before {
+  content: 'Inter';
+  font-family: 'Inter', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="outfit"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="outfit"]::before {
+  content: 'Outfit';
+  font-family: 'Outfit', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="arial"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="arial"]::before {
+  content: 'Arial';
+  font-family: 'Arial', sans-serif;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value="times-new-roman"]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value="times-new-roman"]::before {
+  content: 'Times New Roman';
+  font-family: 'Times New Roman', serif;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { font-size: 15px; }
