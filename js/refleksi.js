@@ -161,3 +161,7 @@ class RefleksiLoader {
 document.addEventListener('DOMContentLoaded', () => {
     new RefleksiLoader();
 });
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = RefleksiLoader;
+}
