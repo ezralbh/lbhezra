@@ -175,3 +175,7 @@ class GalleryLightbox {
 //         new GalleryLightbox();
 //     }
 // });
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = GalleryLightbox;
+}
